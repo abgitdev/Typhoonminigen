@@ -10,9 +10,9 @@ reproducible recipes, and ×2/×4 upscaling are all built in.
 > Not affiliated with SCB 10X's "Typhoon" LLMs or any other Typhoon-named project. "FLUX" is a
 > trademark of Black Forest Labs; this is an independent client for it.
 
-<!-- Screenshots: drop PNGs into docs/screenshots/ and they'll show here.
-![Generate](docs/screenshots/generate.png)
-![Gallery](docs/screenshots/gallery.png) -->
+![Typhoonminigen — Generate view with live telemetry](docs/screenshots/generate.png)
+
+*Type a prompt in English or Russian, press Generate, and watch live system telemetry while Klein renders fully on-device.*
 
 ## Requirements
 
@@ -93,6 +93,20 @@ dependency `mlx-swift` is pinned to `0.30.6` (0.31.4 breaks the engine's trainin
 - **Upscale** ×2/×4 via Real-ESRGAN.
 - **Live system telemetry** — CPU / GPU / RAM / MLX memory / disk.
 - **Model management** — download, import existing MLX weights, delete, unload to reclaim RAM.
+
+## Screenshots
+
+**Library — curated, ready-to-use scene presets across 11 categories.** One tap loads a complete scene into Generate; edit the subject and press Generate.
+
+![Library](docs/screenshots/library.png)
+
+**Models — two quality tiers that match your RAM (Klein 4B / 9B), downloaded on-device.** The app picks a tier for your Mac and shows exactly what each one needs.
+
+![Models](docs/screenshots/models.png)
+
+**Every image keeps its full recipe inside the PNG.** Open any result to copy the prompt, re-run it, or “Remix” the exact settings — seed, size, LoRA and all.
+
+![Recipe & Remix](docs/screenshots/recipe.png)
 
 ## Privacy
 
