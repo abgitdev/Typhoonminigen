@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: macOS build (xcodebuild + Metal)
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select newest Xcode
+        run: |
+          latest=$(ls -d /Applications/Xcode*.app | sort -V | tail -1)
+          echo "Selecting $latest"
+          sudo xcode-select -s "$latest/Contents/Developer"
+          xcodebuild -version
+
+      - name: Download Metal Toolchain (Xcode 26+)
+        run: xcodebuild -downloadComponent MetalToolchain || echo "::warning::MetalToolchain download returned non-zero (may already be present)"
+
+      - name: Resolve Swift packages
+        run: xcodebuild -resolvePackageDependencies -scheme Typhoonminigen
+
+      - name: Build
+        run: |
+          set -o pipefail
+          xcodebuild -scheme Typhoonminigen -destination 'platform=macOS' -derivedDataPath .build-ci -skipMacroValidation -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO build
